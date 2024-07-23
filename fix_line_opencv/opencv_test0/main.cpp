@@ -1,13 +1,13 @@
 /*
-Ê¹ÓÃËµÃ÷£º
-1. ÏñËØµãĞÅÏ¢±£´æÔÚimgArrayÖĞ£¬ÓÃimgArray[i][j]¿Éµ÷ÓÃÏñËØÖµ¡£ºÚÉ«Îª1£¬°×É«Îª0
-2. file.txt ÎªÃ¿ÕÅÍ¼Ïñ¼ÇÂ¼µÄÊı¾İ£¬¿ÉÓÃfile.txt += "ËµÃ÷" Ìí¼ÓÄÚÈİ¡£ÄÚÈİ½«±£´æÎªÓëÍ¼Æ¬Í¬ÃûµÄtxtÎÄ¼ş
-3. imgProcess.Array2Mat(imgArray, imgOut) ½«²¹ÏßºóµÄÊı×é´«ÈëµÚÒ»¸ö²ÎÊı
-4. basePath Ä¬ÈÏ²»ĞèÒªĞŞ¸Ä£¬¿ÉÒÔĞŞ¸ÄÎªÍ¼ÏñËùÔÚÎÄ¼ş¼Ğ£¬ÒªÇóbasePathÄ¿Â¼ÏÂÓĞ"input" ºÍ "output" ÎÄ¼ş¼Ğ
-5. ¹¤³Ì¸ùÄ¿Â¼ÏÂÌí¼Ó"input"ºÍ¡°output"ÎÄ¼ş¼Ğ£¬²¢½«´ı´¦ÀíÍ¼Ïñ·ÅÔÚ"input" ÎÄ¼ş¼ĞÖĞ£¬´ı´¦ÀíÍ¼ÏñÄ¬ÈÏÎªbmp¸ñÊ½
-6. ²¹ÏßÍ¼ÏñĞ´ÔÚ void Patchingline() º¯ÊıÖĞ£¬Ò»°ã²»ÓÃĞŞ¸Ä main() 
-7. ÑÕÉ«±í£º £¨ÔÚImgProcess.hppÎÄ¼şÖĞ£©
-¿É½« imgArray[i][j] µÄÖµ¸³ÖµÎª¶ÔÓ¦ÑÕÉ«£¬×ª»¯Îªmat±äÁ¿Ê±£¬½«×ª»»Îª¶ÔÓ¦µÄRGBÑÕÉ«
+ä½¿ç”¨è¯´æ˜ï¼š
+1. åƒç´ ç‚¹ä¿¡æ¯ä¿å­˜åœ¨imgArrayä¸­ï¼Œç”¨imgArray[i][j]å¯è°ƒç”¨åƒç´ å€¼ã€‚é»‘è‰²ä¸º0ï¼Œç™½è‰²ä¸º1
+2. file.txt ä¸ºæ¯å¼ å›¾åƒè®°å½•çš„æ•°æ®ï¼Œå¯ç”¨file.txt += "è¯´æ˜" æ·»åŠ å†…å®¹ã€‚å†…å®¹å°†ä¿å­˜ä¸ºä¸å›¾ç‰‡åŒåçš„txtæ–‡ä»¶
+3. imgProcess.Array2Mat(imgArray, imgOut) å°†è¡¥çº¿åçš„æ•°ç»„ä¼ å…¥ç¬¬ä¸€ä¸ªå‚æ•°
+4. basePath é»˜è®¤ä¸éœ€è¦ä¿®æ”¹ï¼Œå¯ä»¥ä¿®æ”¹ä¸ºå›¾åƒæ‰€åœ¨æ–‡ä»¶å¤¹ï¼Œè¦æ±‚basePathç›®å½•ä¸‹æœ‰"input" å’Œ "output" æ–‡ä»¶å¤¹
+5. å·¥ç¨‹æ ¹ç›®å½•ä¸‹æ·»åŠ "input"å’Œâ€œoutput"æ–‡ä»¶å¤¹ï¼Œå¹¶å°†å¾…å¤„ç†å›¾åƒæ”¾åœ¨"input" æ–‡ä»¶å¤¹ä¸­ï¼Œå¾…å¤„ç†å›¾åƒé»˜è®¤ä¸ºbmpæ ¼å¼
+6. è¡¥çº¿å›¾åƒå†™åœ¨ void Patchingline() å‡½æ•°ä¸­ï¼Œä¸€èˆ¬ä¸ç”¨ä¿®æ”¹ main() 
+7. é¢œè‰²è¡¨ï¼š ï¼ˆåœ¨ImgProcess.hppæ–‡ä»¶ä¸­ï¼‰
+å¯å°† imgArray[i][j] çš„å€¼èµ‹å€¼ä¸ºå¯¹åº”é¢œè‰²ï¼Œè½¬åŒ–ä¸ºmatå˜é‡æ—¶ï¼Œå°†è½¬æ¢ä¸ºå¯¹åº”çš„RGBé¢œè‰²
 enum color
 {
     black,
@@ -21,11 +21,11 @@ enum color
 #include <iostream>
 #include <vector>
 #include <string>
-#include <filesystem>  // C++17 ÒıÈëµÄ¿â
+#include <filesystem>  // C++17 å¼•å…¥çš„åº“
 #include <opencv2/opencv.hpp>
 #include <chrono>
-#include <algorithm> // ÓÃÓÚ std::sort
-#include <regex>     // ÓÃÓÚÌáÈ¡Êı×Ö
+#include <algorithm> // ç”¨äº std::sort
+#include <regex>     // ç”¨äºæå–æ•°å­—
 
 #include "ImgProcess.hpp"
 
@@ -37,68 +37,68 @@ using namespace filesystem;
 #define image_w 186
 #define image_h 70
 
-vector<vector<int>> imgArray;       // Ô­Í¼Êı×é
-string basePath = "..";             // Ïà¶ÔÂ·¾¶£¬Ò²¿ÉÌæ»»ÎªÍ¼ÏñÎÄ¼şËùÔÚ¾ø¶ÔÂ·¾¶
-Mat imgOut;                         // Êä³öÍ¼Ïñ
-ImgProcess imgProcess;              // Í¼Ïñ´¦ÀíÀà
-FilePath file(basePath);            // ÎÄ¼ş´¦ÀíÀà
+vector<vector<int>> imgArray;       // åŸå›¾æ•°ç»„
+string basePath = "..";             // ç›¸å¯¹è·¯å¾„ï¼Œä¹Ÿå¯æ›¿æ¢ä¸ºå›¾åƒæ–‡ä»¶æ‰€åœ¨ç»å¯¹è·¯å¾„
+Mat imgOut;                         // è¾“å‡ºå›¾åƒ
+ImgProcess imgProcess;              // å›¾åƒå¤„ç†ç±»
+FilePath file(basePath);            // æ–‡ä»¶å¤„ç†ç±»
 
 void Patchingline()
 {
-    // ÔÚÕâÀïĞ´²¹Ïßº¯Êı
+    // åœ¨è¿™é‡Œå†™è¡¥çº¿å‡½æ•°
 }
 
 
-// ÌáÈ¡ÎÄ¼şÃûÖĞµÄÊı×Ö
+// æå–æ–‡ä»¶åä¸­çš„æ•°å­—
 int extractNumber(const string& filename) {
     std::smatch match;
     std::regex regex("\\d+");
     if (std::regex_search(filename, match, regex)) {
-        return std::stoi(match[0]); // ·µ»ØÕÒµ½µÄµÚÒ»¸öÊı×Ö
+        return std::stoi(match[0]); // è¿”å›æ‰¾åˆ°çš„ç¬¬ä¸€ä¸ªæ•°å­—
     }
-    return 0; // Èç¹ûÃ»ÓĞÕÒµ½Êı×Ö£¬·µ»Ø0
+    return 0; // å¦‚æœæ²¡æœ‰æ‰¾åˆ°æ•°å­—ï¼Œè¿”å›0
 }
 
 
 int main() 
 {
-    if (file.CheckFolder(basePath)) return 0;                   // ¼ì²éÎÄ¼şÂ·¾¶
-    auto startZero = chrono::high_resolution_clock::now();      // ¿ªÊ¼¼ÆÊ±
-    vector<path> imagePaths;                                    // ÓÃÓÚ´æ´¢Í¼ÏñÂ·¾¶
+    if (file.CheckFolder(basePath)) return 0;                   // æ£€æŸ¥æ–‡ä»¶è·¯å¾„
+    auto startZero = chrono::high_resolution_clock::now();      // å¼€å§‹è®¡æ—¶
+    vector<path> imagePaths;                                    // ç”¨äºå­˜å‚¨å›¾åƒè·¯å¾„
 
-    // ±éÀúÎÄ¼ş¼ĞÖĞµÄËùÓĞÎÄ¼ş²¢¼ì²éÀ©Õ¹Ãû
+    // éå†æ–‡ä»¶å¤¹ä¸­çš„æ‰€æœ‰æ–‡ä»¶å¹¶æ£€æŸ¥æ‰©å±•å
     for (const auto& entry : directory_iterator(file.inputPath)) {
         if (entry.path().extension() == ".jpg") {
             imagePaths.push_back(entry.path());
         }
     }
 
-    // ¸ù¾İÎÄ¼şÃûÖĞµÄÊı×Ö¶ÔÍ¼ÏñÂ·¾¶½øĞĞÅÅĞò
+    // æ ¹æ®æ–‡ä»¶åä¸­çš„æ•°å­—å¯¹å›¾åƒè·¯å¾„è¿›è¡Œæ’åº
     std::sort(imagePaths.begin(), imagePaths.end(), [](const path& a, const path& b) {
         return extractNumber(a.filename().string()) < extractNumber(b.filename().string());
         });
 
 
-    // ±éÀúÅÅĞòºóµÄÍ¼ÏñÂ·¾¶
+    // éå†æ’åºåçš„å›¾åƒè·¯å¾„
     for (const auto& imgPath : imagePaths)
     {
-        auto start = chrono::high_resolution_clock::now();  // ¿ªÊ¼¼ÆÊ±
-        file.GetName(imgPath);                              // »ñÈ¡µ±Ç°Í¼ÏñÎÄ¼ş
-        if (file.img.channels() == 3)                       // Èô´«Èë²ÊÍ¼ ½øĞĞ¶şÖµ»¯
+        auto start = chrono::high_resolution_clock::now();  // å¼€å§‹è®¡æ—¶
+        file.GetName(imgPath);                              // è·å–å½“å‰å›¾åƒæ–‡ä»¶
+        if (file.img.channels() == 3)                       // è‹¥ä¼ å…¥å½©å›¾ è¿›è¡ŒäºŒå€¼åŒ–
             imgProcess.OTSUBinary(file.img);
-        imgProcess.Mat2Array(file.img, imgArray);           // Mat ×ª Êı×é
-        Patchingline();                                     // ²¹Ïß´¦Àí
-        imgProcess.Array2Mat(imgArray, imgOut);             // Êı×é×ªMat
-        imwrite(file.imgOutput, imgOut);                    // ±£´æÍ¼Ïñ
-        file.WriteTxt();                                    // Ğ´ÈëÎÄ±¾
-        auto end = chrono::high_resolution_clock::now();    // »ñÈ¡Ê±¼ä
-        chrono::duration<double> duration = end - start;    // ¼ÆËã³ÖĞøÊ±¼ä
-        printf("µÚ%dÕÅÍ¼Ïñ%s ºÄÊ±%fms\n", file.fileCount, file.imgName.c_str(), duration.count() * 1000);
+        imgProcess.Mat2Array(file.img, imgArray);           // Mat è½¬ æ•°ç»„
+        Patchingline();                                     // è¡¥çº¿å¤„ç†
+        imgProcess.Array2Mat(imgArray, imgOut);             // æ•°ç»„è½¬Mat
+        imwrite(file.imgOutput, imgOut);                    // ä¿å­˜å›¾åƒ
+        file.WriteTxt();                                    // å†™å…¥æ–‡æœ¬
+        auto end = chrono::high_resolution_clock::now();    // è·å–æ—¶é—´
+        chrono::duration<double> duration = end - start;    // è®¡ç®—æŒç»­æ—¶é—´
+        printf("ç¬¬%då¼ å›¾åƒ%s è€—æ—¶%fms\n", file.fileCount, file.imgName.c_str(), duration.count() * 1000);
     }
-    file.CheckImg();                                            // ¼ì²éÎÄ¼ş¼ĞÄÚÊÇ·ñÓĞÍ¼Ïñ
+    file.CheckImg();                                            // æ£€æŸ¥æ–‡ä»¶å¤¹å†…æ˜¯å¦æœ‰å›¾åƒ
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration_all = end - startZero;
-    printf("\nÍ¼Ïñ´¦ÀíÍê±Ï ¹²ºÄÊ±%fms\n", duration_all.count() * 1000);
+    printf("\nå›¾åƒå¤„ç†å®Œæ¯• å…±è€—æ—¶%fms\n", duration_all.count() * 1000);
     printf("FPS: %2.f\n", file.fileCount / duration_all.count());
     return 0;
 }
