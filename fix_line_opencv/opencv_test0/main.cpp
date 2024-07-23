@@ -24,6 +24,8 @@ enum color
 #include <filesystem>  // C++17 引入的库
 #include <opencv2/opencv.hpp>
 #include <chrono>
+#include <algorithm> // 用于 std::sort
+#include <regex>     // 用于提取数字
 
 #include "ImgProcess.hpp"
 
@@ -46,33 +48,58 @@ void Patchingline()
     // 在这里写补线函数
 }
 
+
+// 提取文件名中的数字
+int extractNumber(const string& filename) {
+    std::smatch match;
+    std::regex regex("\\d+");
+    if (std::regex_search(filename, match, regex)) {
+        return std::stoi(match[0]); // 返回找到的第一个数字
+    }
+    return 0; // 如果没有找到数字，返回0
+}
+
+
 int main() 
 {
     if (file.CheckFolder(basePath)) return 0;                   // 检查文件路径
     auto startZero = chrono::high_resolution_clock::now();      // 开始计时
+    vector<path> imagePaths;                                    // 用于存储图像路径
 
-    // 遍历文件夹中的所有文件
-    for (const auto& entry : directory_iterator(file.inputPath)) 
-    {
-        // 检查文件扩展名是否为 .bmp
-        if (entry.path().extension() == ".bmp") 
-        {
-            auto start = chrono::high_resolution_clock::now();  // 开始计时
-            file.GetName(entry);                                // 获取当前图像文件
-            imgProcess.Mat2Array(file.img, imgArray);           // Mat 转 数组
-            Patchingline();                                     // 补线处理
-            imgProcess.Array2Mat(imgArray, imgOut);             // 数组转Mat
-            imwrite(file.imgOutput, imgOut);                    // 保存图像
-            file.WriteTxt();                                    // 写入文本
-            auto end = chrono::high_resolution_clock::now();    // 获取时间
-            chrono::duration<double> duration = end - start;    // 计算持续时间
-            printf("第%d张图像 耗时%fms\n", file.fileCount, duration.count() * 1000);
+    // 遍历文件夹中的所有文件并检查扩展名
+    for (const auto& entry : directory_iterator(file.inputPath)) {
+        if (entry.path().extension() == ".jpg") {
+            imagePaths.push_back(entry.path());
         }
+    }
+
+    // 根据文件名中的数字对图像路径进行排序
+    std::sort(imagePaths.begin(), imagePaths.end(), [](const path& a, const path& b) {
+        return extractNumber(a.filename().string()) < extractNumber(b.filename().string());
+        });
+
+
+    // 遍历排序后的图像路径
+    for (const auto& imgPath : imagePaths)
+    {
+        auto start = chrono::high_resolution_clock::now();  // 开始计时
+        file.GetName(imgPath);                              // 获取当前图像文件
+        if (file.img.channels() == 3)                       // 若传入彩图 进行二值化
+            imgProcess.OTSUBinary(file.img);
+        imgProcess.Mat2Array(file.img, imgArray);           // Mat 转 数组
+        Patchingline();                                     // 补线处理
+        imgProcess.Array2Mat(imgArray, imgOut);             // 数组转Mat
+        imwrite(file.imgOutput, imgOut);                    // 保存图像
+        file.WriteTxt();                                    // 写入文本
+        auto end = chrono::high_resolution_clock::now();    // 获取时间
+        chrono::duration<double> duration = end - start;    // 计算持续时间
+        printf("第%d张图像%s 耗时%fms\n", file.fileCount, file.imgName.c_str(), duration.count() * 1000);
     }
     file.CheckImg();                                            // 检查文件夹内是否有图像
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration_all = end - startZero;
-    printf("图像处理完毕 共耗时%fms\n", duration_all.count() * 1000);
+    printf("\n图像处理完毕 共耗时%fms\n", duration_all.count() * 1000);
+    printf("FPS: %2.f\n", file.fileCount / duration_all.count());
     return 0;
 }
 

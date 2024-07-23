@@ -38,7 +38,6 @@ void ImgProcess::Mat2Array(cv::Mat& img, std::vector<std::vector<int>>& imgArray
     }
 }
 
-
 void ImgProcess::Array2Mat(vector<vector<int>>& imgArray, Mat& img) // Êý×é×ªÍ¼Ïñ
 {
     int imgHeight = imgArray.size();
@@ -74,6 +73,27 @@ void ImgProcess::Array2Mat(vector<vector<int>>& imgArray, Mat& img) // Êý×é×ªÍ¼Ï
     }
 }
 
+void ImgProcess::OTSUBinary(Mat& img)
+{
+    // ½«Í¼Ïñ×ª»»Îª»Ò¶ÈÍ¼Ïñ
+    Mat gray;
+    cvtColor(img, gray, COLOR_BGR2GRAY);
+
+    // Ö´ÐÐ´ó½ò·¨¶þÖµ»¯
+    Mat binary;
+    
+    int thresh = threshold(gray, binary, black, white, THRESH_OTSU);
+
+    if (thresh > 110)
+        thresh = 110;
+    if (thresh < 90)
+        thresh = 90;
+
+    threshold(gray, binary, thresh, white, THRESH_BINARY); // ´ó½ò·¨¶þÖµ»¯´¦Àí
+
+    // ½«´¦ÀíºóµÄÍ¼Ïñ¸³Öµ»Ø img
+    img = binary.clone();
+}
 
 #pragma endregion
 
@@ -141,16 +161,17 @@ void FilePath::CheckImg()
     }
 }
 
-void FilePath::GetName(const std::filesystem::directory_entry& entry)
+void FilePath::GetName(const std::filesystem::path& imgPath)
 {
-    img = imread(entry.path().string(), IMREAD_GRAYSCALE);      // ¶ÁÈ¡Í¼Ïñ(±ØÐëÊÇ»Ò¶ÈÍ¼£©
-    imgName = path(entry.path().string()).stem().string();      // Í¼Æ¬ÎÄ¼þÃû£¨²»º¬ºó×º£©
-    imgOutput = outputPath + "\\" + imgName + ".jpg";           // Êä³öÍ¼ÏñÂ·¾¶
-    txtOutput = outputPath + "\\" + imgName + ".txt";           // Êä³öÎÄ±¾Â·¾¶
+    img = imread(imgPath.string());                   // ¶ÁÈ¡Í¼Ïñ
+    imgName = imgPath.stem().string();                // »ñÈ¡ÎÄ¼þÃû
+    imgOutput = outputPath + "\\" + imgName + ".jpg"; // ¹¹ÔìÊä³öÍ¼ÏñÂ·¾¶
+    txtOutput = outputPath + "\\" + imgName + ".txt"; // ¹¹ÔìÊä³öÎÄ±¾Â·¾¶
     fileCount++;
     txt.clear();
-    txt += "********ÕâÊÇµÚ" + to_string(fileCount) + "ÕÅÍ¼Ïñ********\n";
+    txt += "********" + to_string(fileCount) + "********\n";
 }
+
 
 void FilePath::WriteTxt(void)
 {

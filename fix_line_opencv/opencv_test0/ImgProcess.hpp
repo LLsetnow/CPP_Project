@@ -25,6 +25,7 @@ public:
     Mat imgOut;
     void Mat2Array(Mat& img, vector<vector<int>>& imgArray); // 图像转数组
     void Array2Mat(vector<vector<int>>& imgArray, Mat& img); // 数组转图像
+    void OTSUBinary(Mat& img);                               // 大津法二值化
  
 private:
 
@@ -49,7 +50,7 @@ public:
     FilePath(string basePath);                                  // 传入根目录
     int CheckFolder(string basePath);                           // 检查文件夹是否存在
     void CheckImg(void);                                        // 检查input文件夹内是否有图像
-    void GetName(const std::filesystem::directory_entry& entry);// 获取文件名
+    void GetName(const std::filesystem::path& entry);           // 获取文件名
     void WriteTxt(void);                                        // 写入文本
 
 

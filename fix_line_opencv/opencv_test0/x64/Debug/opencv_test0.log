@@ -1,7 +1,7 @@
 ﻿  ImgProcess.cpp
-D:\github\Online_Tournament\detection\fix_line_opencv\opencv_test0\ImgProcess.cpp(44,19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\github\Online_Tournament\detection\fix_line_opencv\opencv_test0\ImgProcess.cpp(45,18): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\github\Online_Tournament\fix_line_opencv\opencv_test0\ImgProcess.cpp(43,19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\github\Online_Tournament\fix_line_opencv\opencv_test0\ImgProcess.cpp(44,18): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\github\Online_Tournament\fix_line_opencv\opencv_test0\ImgProcess.cpp(85,16): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
   main.cpp
   正在生成代码...
-  LINK : 没有找到 D:\github\Online_Tournament\detection\fix_line_opencv\x64\Debug\opencv_test0.exe 或上一个增量链接没有生成它；正在执行完全链接
-  opencv_test0.vcxproj -> D:\github\Online_Tournament\detection\fix_line_opencv\x64\Debug\opencv_test0.exe
+  opencv_test0.vcxproj -> D:\github\Online_Tournament\fix_line_opencv\x64\Debug\opencv_test0.exe
